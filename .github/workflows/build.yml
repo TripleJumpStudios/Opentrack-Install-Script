@@ -1,0 +1,28 @@
+name: Build RPM Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: fedora-latest  # This will use the latest Fedora runner
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up RPM build environment
+      run: |
+        sudo dnf install -y rpm-build gcc make cmake qt5-qttools-devel qt5-qtbase-devel procps-ng-devel opencv-devel
+
+    - name: Build RPM
+      run: |
+        rpmbuild -ba ~/rpmbuild/SPECS/opentrack-fedora.spec
+
+    - name: Upload RPM as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: opentrack-fedora
+        path: ~/rpmbuild/RPMS/x86_64/*.rpm
