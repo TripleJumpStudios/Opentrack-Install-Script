@@ -17,6 +17,7 @@ The script performs the following tasks:
 3. **Build Process:**  
    - Configures the build environment using CMake (with support for ONNXRuntime and Wine SDK).
    - Compiles opentrack using `make` with parallel processing.
+   - Sets up Windows headers (e.g., `windows.h`) needed for Wine-based builds.
    - Installs opentrack locally within the build directory.
 
 4. **Post-Installation Instructions:**  
